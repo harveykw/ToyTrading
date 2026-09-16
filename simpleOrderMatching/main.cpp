@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
 
     for (const auto &line : results)
     {
-        std::cout << line;
+        std::cout << line << '\n';
     }
+
+    return 0;
 }

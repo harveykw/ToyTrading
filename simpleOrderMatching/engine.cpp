@@ -36,9 +36,13 @@ void MatchingEngine::update(std::vector<std::string> &outStream)
 
         // Match not made: Lowest sell greater than greatest buy
         if (sellPrice > buyPrice)
-        {
             break;
-        }
+
+        if (sellData.empty())
+            ++itSell;
+
+        if (buyData.empty())
+            ++itBuy;
 
         // Match made, reduce the neccesary quantities
 
@@ -66,10 +70,8 @@ void MatchingEngine::update(std::vector<std::string> &outStream)
             }
 
             outStream.push_back(
-                "TRADE " + std::to_string(buyID) + ' ' + std::to_string(sellID) + ' ' + std::to_string((sellID < buyID) ? buyPrice : sellPrice) + ' ' + std::to_string(std::min(buyQuantity, sellQuantity)));
+                "TRADE " + std::to_string(buyID) + ' ' + std::to_string(sellID) + ' ' + std::to_string((sellID < buyID) ? sellPrice : buyPrice) + ' ' + std::to_string(std::min(buyQuantity, sellQuantity)));
         }
-
-        // Write to outstream if applicable
     }
 }
 
